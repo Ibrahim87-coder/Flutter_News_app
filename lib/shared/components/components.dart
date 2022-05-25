@@ -85,11 +85,8 @@ Widget buildArticleItem(article, BuildContext context)=>Padding(
               Expanded(
                 child: Text(
                   '${article['title']}',
-                  style: const TextStyle(
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w800
-                  ),
-                  maxLines: 4,
+                  style: Theme.of(context).textTheme.bodyText1,
+                  maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
