@@ -1,5 +1,6 @@
 import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
+import 'package:news_app/modules/web_view/web_view_screen.dart';
 
 Widget defaultButton(
         {double width = double.infinity,
@@ -59,49 +60,99 @@ Widget defaultFormField({
       ),
     );
 
-Widget buildArticleItem(article, BuildContext context)=>Padding(
-  padding: const EdgeInsets.all(20.0),
-  child: Row(
-    children: [
-      Container(
-        width: 120.0,
-        height: 120.0,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            image: DecorationImage(
-                image: NetworkImage('${article['urlToImage']??'https://media.istockphoto.com/photos/breaking-news-world-news-with-map-backgorund-picture-id1182477852?k=20&m=1182477852&s=612x612&w=0&h=I3wdSzT_5h1y9dHq_YpZ9AqdIKg8epthr8Guva8FkPA='}'),
-                fit: BoxFit.cover
-            )
-        ),
-      ),
-      const SizedBox(width: 20.0,),
-      Expanded(
-        child: Container(
+Widget buildArticleItem(article, BuildContext context)=> InkWell(
+  onTap: ()
+  {
+    navigateTo(context, WebViewScreen( url: article['url'],));
+  },
+  child:Padding(
+  
+    padding: const EdgeInsets.all(20.0),
+  
+    child: Row(
+  
+      children: [
+  
+        Container(
+  
+          width: 120.0,
+  
           height: 120.0,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Text(
-                  '${article['title']}',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  maxLines: 3,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              Text(
-                  '${article['publishedAt']}',
-                style: const TextStyle(
-                    color: Colors.grey
-                ),
-              ),
-            ],
+  
+          decoration: BoxDecoration(
+  
+              borderRadius: BorderRadius.circular(10.0),
+  
+              image: DecorationImage(
+  
+                  image: NetworkImage('${article['urlToImage']??'https://media.istockphoto.com/photos/breaking-news-world-news-with-map-backgorund-picture-id1182477852?k=20&m=1182477852&s=612x612&w=0&h=I3wdSzT_5h1y9dHq_YpZ9AqdIKg8epthr8Guva8FkPA='}'),
+  
+                  fit: BoxFit.cover
+  
+              )
+  
           ),
+  
         ),
-      )
-
-    ],
+  
+        const SizedBox(width: 20.0,),
+  
+        Expanded(
+  
+          child: Container(
+  
+            height: 120.0,
+  
+            child: Column(
+  
+              crossAxisAlignment: CrossAxisAlignment.start,
+  
+              mainAxisAlignment: MainAxisAlignment.start,
+  
+              children: [
+  
+                Expanded(
+  
+                  child: Text(
+  
+                    '${article['title']}',
+  
+                    style: Theme.of(context).textTheme.bodyText1,
+  
+                    maxLines: 3,
+  
+                    overflow: TextOverflow.ellipsis,
+  
+                  ),
+  
+                ),
+  
+                Text(
+  
+                    '${article['publishedAt']}',
+  
+                  style: const TextStyle(
+  
+                      color: Colors.grey
+  
+                  ),
+  
+                ),
+  
+              ],
+  
+            ),
+  
+          ),
+  
+        )
+  
+  
+  
+      ],
+  
+    ),
+  
   ),
 );
 
