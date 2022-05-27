@@ -7,6 +7,7 @@ import 'package:news_app/shared/cubit/cubit.dart';
 import 'package:news_app/shared/cubit/states.dart';
 import 'package:news_app/shared/network/local/cache.helper.dart';
 import 'package:news_app/shared/network/remote/dio_helper.dart';
+import 'layout/news_app/cubit/cubit.dart';
 import 'layout/news_app/news_layout.dart';
 
 void main() async {
@@ -30,13 +31,14 @@ class MyApp extends StatelessWidget {
 
   const MyApp({Key? key, required this.isDark}) : super(key: key);
 
-
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (BuildContext context) => AppCubit()..changeAppMode(fromShared: isDark),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create:(BuildContext context)=>NewsCubit()..getBusiness()..getScience()..getSports(),),
+        BlocProvider(create: (BuildContext context) => AppCubit()..changeAppMode(fromShared: isDark),)
+      ],
       child: BlocConsumer<AppCubit, AppStates>(
         listener: (context, state) {},
         builder: (context, state) => MaterialApp(
@@ -100,8 +102,7 @@ class MyApp extends StatelessWidget {
                     fontWeight: FontWeight.w600,
                     color: Colors.white)),
           ),
-          themeMode:
-              AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
+          themeMode: AppCubit.get(context).isDark ? ThemeMode.dark : ThemeMode.light,
           home: NewsLayout(),
         ),
       ),
